@@ -42,7 +42,7 @@ jobs:
         run: uv sync --group all
 
       - name: Run pytest
-        run: uv run pytest
+        run: uv run --with pytest-xdist pytest -n auto --dist load
         env:
           MPLBACKEND: Agg
           RAY_ENABLE_UV_RUN_RUNTIME_ENV: 0
@@ -76,6 +76,6 @@ jobs:
           uv pip install "pandas>=3"
 
       - name: Run pytest
-        run: uv run --no-sync pytest --ignore=tests/test_distributed_fugue.py --no-cov
+        run: uv run --no-sync --with pytest-xdist pytest -n auto --dist load --ignore=tests/test_distributed_fugue.py --no-cov
         env:
           MPLBACKEND: Agg
